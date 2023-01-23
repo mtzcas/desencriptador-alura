@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>¡Encriptame!</title>
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style_desafio1_1.css" />
+    <!--<link rel="shortcut icon" href="./imagenes/logo.svg" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&display=swap" rel="stylesheet"> -->
+  </head>
+  <body>
+    <header>
+      <div class="contenedor">
+        <img class="logo" src="logo_alura_blanco_negro.png" alt="logo alura" />
+        <h1 class="titulo_logo">¡Challenge ONE Encriptador!</h1>
+      </div>
+    </header>
+
+    <main>
+      <div class="contenedor">
+        <div class="encriptador">
+          <form class="encriptador_form">
+            <div class="texto_en_area">
+              <textarea
+                name="texto"
+                id="texto"
+                placeholder="Ingrese el texto aqui"
+              ></textarea>
+              <div class="texto_info">
+                <div class="info">
+                  <img src="advertencia.png" />
+                  <p id="advertencia">Solo letras minúsculas, sin acentos.</p>
+                </div>
+              </div>
+
+              <div class="btn">
+                <button id="encri" class="btn_encriptar" type="button">
+                  <img src="button-encript.png" />
+                  Encriptar
+                </button>
+                <button id="desencri" class="btn_desencriptar" type="button">
+                  <img src="button-decript.png" />
+                  Desencriptar
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <div class="resultado">
+            <div class="contenedor_resultado">
+              <div class="contenido_no_resuelto" id="noResuelto">
+                <div class="imagen_resultado">
+                  <img src="crypto.png" alt="imagen muñeco" />
+                </div>
+                <p>Ningún mensaje fue encontrado</p>
+                <p>Ingresa el texto que desees encriptar o desencriptar.</p>
+              </div>
+
+              <div class="contenido_resuelto" id="resuelto">
+                <textarea
+                  name="texto_resultado"
+                  id="textoResultado"
+                  disabled
+                ></textarea>
+                <button id="copiar" type="button">
+                  <img src="button-copy.png" /> Copiar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer>
+      <p class="copyright">
+        Desarrollado por Luis Alberto Martinez Castillo
+        <a href="target" ="_blank" rel="noopener noreferrer"
+          >para Oracle Alura ONE -G4</a
+        >
+      </p>
+    </footer>
+  </body>
+</html>
+
+<script>
+  const textoIngresado = document.querySelector("#texto");
+  const textoResultado = document.querySelector("#textoResultado");
+
+  const btnEncriptar = document.querySelector("#encri");
+  const btnDesencriptar = document.querySelector("#desencri");
+  const btnCopiar = document.querySelector("#copiar");
+
+  function encriptar() {
+    let texto = textoIngresado.value.toLowerCase();
+    let textoEncriptado = texto
+      .replaceAll("e", "enter")
+      .replaceAll("i", "imes")
+      .replaceAll("o", "ober")
+      .replaceAll("a", "ai")
+      .replaceAll("u", "ufat");
+
+    document.getElementById("noResuelto").style.visibility = "hidden";
+    document.getElementById("copiar").style.visibility = "visible";
+
+    textoResultado.value = textoEncriptado;
+
+    document.getElementById("texto").value = "";
+  }
+
+  function desencriptar() {
+    let textoEncriptado = textoIngresado.value.toLowerCase();
+    let texto = textoEncriptado
+      .replaceAll("enter", "e")
+      .replaceAll("imes", "i")
+      .replaceAll("ober", "o")
+      .replaceAll("ai", "a")
+      .replaceAll("ufat", "u");
+
+    document.getElementById("noResuelto").style.visibility = "hidden";
+    document.getElementById("copiar").style.visibility = "visible";
+
+    textoResultado.value = texto;
+
+    document.getElementById("texto").value = "";
+  }
+
+  function copiar() {
+    let textoEncriptado = textoResultado.value;
+    navigator.clipboard.writeText(textoEncriptado);
+  }
+
+  btnEncriptar.onclick = encriptar;
+  btnDesencriptar.onclick = desencriptar;
+  btnCopiar.onclick = copiar;
+</script>
